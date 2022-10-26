@@ -1,6 +1,6 @@
-# SafeHarbor-defi
+# SafeHarbor Decentralized Finance
 
-![SafeHarbor DeFi](https://gateway.pinata.cloud/ipfs/QmawL6eiHUkzaLL2yc8LEqGvDEyFHXmmuX2qC7CJ1hH8U8)
+![SafeHarbor DeFi](https://gateway.pinata.cloud/ipfs/QmbGdFqXuzzqR67usY2kubreft7phPGpnrbXK6MwzPJkeE)
 
 ## Prerequisites
 
