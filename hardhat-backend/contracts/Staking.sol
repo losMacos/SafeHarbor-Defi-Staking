@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Inspired by https://solidity-by-example.org/defi/staking-rewards/
+// Inspired by https://github.com/smartcontractkit/defi-minimal/blob/main/contracts/Staking.sol
 pragma solidity ^0.8.7;
 
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
@@ -120,13 +120,10 @@ contract Staking is ReentrancyGuard {
         _;
     }
 
-    /********************/
-    /* Getter Functions */
-    /********************/
-    // Ideally, we'd have getter functions for all our s_ variables we want exposed, and set them all to private.
-    // But, for the purpose of this demo, we've left them public for simplicity.
 
     function getStaked(address account) public view returns (uint256) {
         return s_balances[account];
     }
 }
+
+// Verified: https://goerli.etherscan.io/address/0x60791CCA42004b6B438eDb1C824dF594d88F4EB0#code
