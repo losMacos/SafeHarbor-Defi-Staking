@@ -9,4 +9,5 @@ contract RewardToken is ERC20 {
     }
 }
 
-// Verified contract: https://goerli.etherscan.io/address/0x6f539e5b5a6677fe5bda2f3c71e5c057544ce5f4#code
+// Goerli address 11-6-22: 0x49ac9Ef94b363877112d5Ebcc878dBD10012699f
+// Verified contract: https://goerli.etherscan.io/address/0x49ac9Ef94b363877112d5Ebcc878dBD10012699f#code
