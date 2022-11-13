@@ -7,10 +7,12 @@ import { useWeb3Contract } from "react-moralis"
 import { rewardTokenAbi, rewardTokenAddress, stakingAbi, stakingAddress } from "../constants"
 import { Form } from "web3uikit"
 import { ethers } from "ethers"
+import Emoji from "./Emoji"
 
 export default function StakeForm() {
     const { runContractFunction } = useWeb3Contract()
-    const [stakeAmount, setStakeAmount] = useState(500000);
+    const [stakeAmount, setStakeAmount] = useState("50000");
+
     let approveOptions = {
         abi: rewardTokenAbi,
         contractAddress: rewardTokenAddress,
@@ -22,8 +24,9 @@ export default function StakeForm() {
         functionName: "stake",
     }
 
-    async function handleStakeSubmit(data) {
-        const amountToApprove = data.data[0].inputResult
+    async function handleStakeSubmit(e) {
+        e.preventDefault()
+        const amountToApprove = stakeAmount
         approveOptions.params = {
             amount: ethers.utils.parseUnits(amountToApprove, "ether").toString(),
             spender: stakingAddress,
@@ -47,12 +50,12 @@ export default function StakeForm() {
             params: stakeOptions,
             onError: (error) => console.log(error),
         })
-        await tx.wait(2)
-        console.log("Transaction has been confirmed by 1 block")
+        await tx.wait(3)
+        console.log("Transaction has been confirmed by 3 blocks")
     }
 
     return (
-        <div className="">
+        <div id="panel-stake">
             <div className="w-[65%] m-auto bg-white rounded-md shadow p-10">
                 <form 
                    className="w-full flex justify-center flex-col"
@@ -62,11 +65,19 @@ export default function StakeForm() {
                     <div className="slider-container mt-10">
                         <input className="sliderInput mb-8 ml-auto mr-auto block w-24 text-center" type="number" name="amountToStakeInput" value={stakeAmount} onChange={(e)=> setStakeAmount(e.target.value)}></input>
                         <div className="slider-wrapper flex flex-col justify-center align-center items-center">
-                            <input 
-                            className="w-[60%] h-0.5 outline-none border-none bg-black mb-3"
-                            type="range" name="amountToStake" id="amountToStake" min="0" max="100000" step="1" value={stakeAmount} key="amountToStake" onChange={(e)=> setStakeAmount(e.target.value)}></input>
-                            <label className="text-textLight text-base text-right w-[60%]" for="amountToStake">Amount to stake (in ETH)</label>
+                            <div className="slider flex justify-center items-center w-full">
+                                <Emoji compStyle="text-3xl" compLabel="globe" emoji="🌍"/>
+                                <input 
+                                    className="w-[60%] h-0.5 outline-none border-none bg-black"
+                                    placeholder={stakeAmount} value={stakeAmount} onChange={(e)=> setStakeAmount(e.target.value)}
+                                    type="range" name="amountToStake" id="amountToStake" min="0" max="100000" step="1" key="amountToStake"></input>
+                                <Emoji compStyle="text-3xl" compLabel="rocket" emoji="🚀"/>
+                            </div>
+                            <label className="text-textLight text-base text-right w-[60%]" htmlFor="amountToStake">Amount to stake (in ETH)</label>
                         </div>
+                    </div>
+                    <div className="w-full flex justify-center">
+                        <input className="bg-secondaryBlue px-8 font-semibold rounded-md py-2 mt-10 inline-block w-fit text-primaryBlue border-3 hover:bg-primaryBlue hover:text-white cursor-pointer" type="submit" value="Stake" />
                     </div>
                 </form>
             </div>

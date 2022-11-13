@@ -5,6 +5,7 @@ import { useMoralis, useWeb3Contract } from "react-moralis"
 import { stakingAddress, stakingAbi, rewardTokenAbi, rewardTokenAddress } from "../constants"
 import { useState, useEffect } from "react"
 import { ethers } from "ethers"
+import PanelWidget from './PanelWidget.js'
 import Image from 'next/image';
 import logo from '../public/logo.png';
 
@@ -87,7 +88,6 @@ export default function StakeDetails() {
         ).toString()
 
         console.log(`Reward per token: ${rewardPerToken}`);
-
         console.log(`Earned: ${earnedFromContract}`)
 
         const formatttedEarnedFromContract = ethers.utils.formatUnits(earnedFromContract, "ether")
@@ -95,38 +95,12 @@ export default function StakeDetails() {
     }
 
     return (
-        <div id="panel">
-            <div className="panel flex justify-center">
-                <div className="flex-initial min-w-panelNumbers px-10 py-5 bg-white shadow mb-5 mx-2 rounded-md">
-                    <div className="text-textLight text-base">
-                        <Image
-                            src={logo}
-                            height={12}
-                            width={20}>
-                        </Image>
-                        RT Balance is:
-                    </div>
-                    <div className="text-2xl font-bold">{toEuNumberFormat(rtBalance, rtBalance.length)}</div>
-                </div>
-                <div className="flex-initial min-w-panelNumbers px-10 py-5 bg-white shadow mb-5 mx-2 rounded-md">
-                    <div className="text-textLight text-base">
-                        <Image
-                            src={logo}
-                            height={12}
-                            width={20}>
-                        </Image>
-                        Earned Balance is:</div>
-                    <div className="text-2xl font-bold">{toEuNumberFormat(earnedBalance, earnedBalance.length)}</div>
-                </div>
-                <div className="flex-initial min-w-panelNumbers px-10 py-5 bg-white shadow mb-5 mx-2 rounded-md">
-                    <div className="text-textLight text-base">
-                        <Image
-                            src={logo}
-                            height={12}
-                            width={20}>
-                        </Image>
-                        Staked Balance is:</div>
-                    <div className="text-2xl font-bold">{toEuNumberFormat(stakedBalance, stakedBalance.length)}</div>
+        <div id="panel-numbers">
+            <div className="w-[65%] mx-auto">
+                <div className="gap-x-4 flex justify-center w-full">
+                    <PanelWidget logo={{src: logo, height: 12, width: 20}} title="RT Balance is:" number={toEuNumberFormat(rtBalance, rtBalance.length)}/>
+                    <PanelWidget logo={{src: logo, height: 12, width: 20}} title="Earned Balance is:" number={toEuNumberFormat(earnedBalance, 5)}/>
+                    <PanelWidget logo={{src: logo, height: 12, width: 20}} title="Staked Balance is:" number={toEuNumberFormat(stakedBalance, stakedBalance.length)}/>
                 </div>
             </div>
         </div>
