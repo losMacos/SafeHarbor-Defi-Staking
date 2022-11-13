@@ -8,7 +8,7 @@ export default function Header() {
     const router = useRouter();
 
     return (
-        <nav className="p-5 mb-10 flex flex-row">
+        <nav className="py-3 border-b-2 border-lightGrey px-10 mb-10 flex flex-row bg-white">
             <Image
                 className='cursor-pointer'
                 onClick={()=> router.push('/')}

@@ -8,10 +8,11 @@ import { rewardTokenAbi, rewardTokenAddress, stakingAbi, stakingAddress } from "
 import { Form } from "web3uikit"
 import { ethers } from "ethers"
 import Emoji from "./Emoji"
+import InputSlider from "./InputSlider"
 
 export default function StakeForm() {
     const { runContractFunction } = useWeb3Contract()
-    const [stakeAmount, setStakeAmount] = useState("50000");
+    const [stakeAmount, setStakeAmount] = useState("0");
 
     let approveOptions = {
         abi: rewardTokenAbi,
@@ -54,26 +55,27 @@ export default function StakeForm() {
         console.log("Transaction has been confirmed by 3 blocks")
     }
 
+    const handleStakeAmntChange = (value) => {
+        setStakeAmount(value)
+    }
+
     return (
-        <div id="panel-stake">
-            <div className="w-[65%] m-auto bg-white rounded-md shadow p-10">
+        <div id="panel-stake" className="w-1/2">
+            <div className="bg-white rounded-md shadow p-10">
                 <form 
                    className="w-full flex justify-center flex-col"
                     onSubmit={handleStakeSubmit} 
                 >
-                    <h3 className="text-2xl text-center font-semibold uppercase">Let's stake!</h3>
+                    <h3 className="text-2xl text-center font-semibold uppercase">Stake Funds</h3>
                     <div className="slider-container mt-10">
                         <input className="sliderInput mb-8 ml-auto mr-auto block w-24 text-center" type="number" name="amountToStakeInput" value={stakeAmount} onChange={(e)=> setStakeAmount(e.target.value)}></input>
                         <div className="slider-wrapper flex flex-col justify-center align-center items-center">
                             <div className="slider flex justify-center items-center w-full">
                                 <Emoji compStyle="text-3xl" compLabel="globe" emoji="🌍"/>
-                                <input 
-                                    className="w-[60%] h-0.5 outline-none border-none bg-black"
-                                    placeholder={stakeAmount} value={stakeAmount} onChange={(e)=> setStakeAmount(e.target.value)}
-                                    type="range" name="amountToStake" id="amountToStake" min="0" max="100000" step="1" key="amountToStake"></input>
+                                <InputSlider min={0} max={100000} amount={stakeAmount} sliderKey="amountToStake" handleSlider={handleStakeAmntChange}/>
                                 <Emoji compStyle="text-3xl" compLabel="rocket" emoji="🚀"/>
                             </div>
-                            <label className="text-textLight text-base text-right w-[60%]" htmlFor="amountToStake">Amount to stake (in ETH)</label>
+                            <label className="text-textLight text-base text-right w-full mt-4" htmlFor="amountToStake">Amount to stake (ETH)</label>
                         </div>
                     </div>
                     <div className="w-full flex justify-center">

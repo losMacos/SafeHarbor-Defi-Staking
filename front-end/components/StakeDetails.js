@@ -6,7 +6,6 @@ import { stakingAddress, stakingAbi, rewardTokenAbi, rewardTokenAddress } from "
 import { useState, useEffect } from "react"
 import { ethers } from "ethers"
 import PanelWidget from './PanelWidget.js'
-import Image from 'next/image';
 import logo from '../public/logo.png';
 
 export default function StakeDetails() {
@@ -96,7 +95,7 @@ export default function StakeDetails() {
 
     return (
         <div id="panel-numbers">
-            <div className="w-[65%] mx-auto">
+            <div className="">
                 <div className="gap-x-4 flex justify-center w-full">
                     <PanelWidget logo={{src: logo, height: 12, width: 20}} title="RT Balance is:" number={toEuNumberFormat(rtBalance, rtBalance.length)}/>
                     <PanelWidget logo={{src: logo, height: 12, width: 20}} title="Earned Balance is:" number={toEuNumberFormat(earnedBalance, 5)}/>
