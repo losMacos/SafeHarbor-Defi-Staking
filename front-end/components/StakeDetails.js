@@ -74,7 +74,7 @@ export default function StakeDetails() {
 
     return (
         <div>
-            <div>RT Balance is: {rtBalance}</div>
+            <div>SAFE Balance is: {rtBalance}</div>
             <div>Earned Balance is: {earnedBalance}</div>
             <div>Staked Balance is: {stakedBalance}</div>
         </div>
