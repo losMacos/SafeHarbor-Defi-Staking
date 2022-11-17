@@ -2,15 +2,16 @@
 // staking address
 // how much they want to stake
 // approve our reward token
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useWeb3Contract } from "react-moralis"
 import { rewardTokenAbi, rewardTokenAddress, stakingAbi, stakingAddress } from "../constants"
-import { Form } from "web3uikit"
 import { ethers } from "ethers"
 import Emoji from "./Emoji"
 import InputSlider from "./InputSlider"
+import {BalancesContext} from '../contexts/BalancesContext'
 
 export default function StakeForm() {
+    const balances = useContext(BalancesContext);
     const { runContractFunction } = useWeb3Contract()
     const [stakeAmount, setStakeAmount] = useState("0");
 
@@ -72,7 +73,7 @@ export default function StakeForm() {
                         <div className="slider-wrapper flex flex-col justify-center align-center items-center">
                             <div className="slider flex justify-center items-center w-full">
                                 <Emoji compStyle="text-3xl" compLabel="globe" emoji="🌍"/>
-                                <InputSlider min={0} max={100000} amount={stakeAmount} sliderKey="amountToStake" handleSlider={handleStakeAmntChange}/>
+                                <InputSlider min={0} max={balances.rtBalance} amount={stakeAmount} sliderKey="amountToStake" handleSlider={handleStakeAmntChange}/>
                                 <Emoji compStyle="text-3xl" compLabel="rocket" emoji="🚀"/>
                             </div>
                             <label className="text-textLight text-base text-right w-full mt-4" htmlFor="amountToStake">Amount to stake (ETH)</label>

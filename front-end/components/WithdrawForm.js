@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { rewardTokenAbi, rewardTokenAddress, stakingAbi, stakingAddress } from "../constants"
 import { useWeb3Contract } from "react-moralis";
 import { ethers } from "ethers";
 import Emoji from "./Emoji";
+import {BalancesContext} from '../contexts/BalancesContext'
 
 const WithdrawForm = () => {
+    const balances = useContext(BalancesContext);
     const { runContractFunction } = useWeb3Contract()
     const [withdrawAmount, setWithdrawAmount] = useState("0");
 
@@ -45,7 +47,7 @@ const WithdrawForm = () => {
                                     className="w-full h-0.5 outline-none border-none bg-black"
                                     onChange={(e)=> setWithdrawAmount(e.target.value)}
                                     placeholder={withdrawAmount}
-                                    type="range" name="amountToWithdraw" id="amountToWithdraw" min="0" max="100000" step="1" key="amountToWithdraw">
+                                    type="range" name="amountToWithdraw" id="amountToWithdraw" min="0" max={balances.stakedBalance} step="1" key="amountToWithdraw">
                                 </input>
                                 <Emoji compStyle="text-3xl" compLabel="coin" emoji="🪙"/>
                             </div>
