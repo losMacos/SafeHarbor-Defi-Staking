@@ -16,7 +16,7 @@ contract Staking is ReentrancyGuard {
     // Which will be multiplied by the tokens the user staked divided by the total
     // This ensures a steady reward rate of the platform
     // So the more users stake, the less for everyone who is staking.
-    uint256 public constant REWARD_RATE = 100;
+    uint256 public constant REWARD_RATE = 1000000;
     uint256 public s_lastUpdateTime;
     uint256 public s_rewardPerTokenStored;
 
@@ -126,5 +126,5 @@ contract Staking is ReentrancyGuard {
     }
 }
 
-//  Goerli address 11-6-22: 0x5C66D5085320C17AD0A476820F1D38D687189eAb
-// Verified: https://goerli.etherscan.io/address/0x5C66D5085320C17AD0A476820F1D38D687189eAb#code
+// Goerli address 11-17-22: 0xF2B60480315f5655f7809aAC56cFBbfC33A11e66
+// Verified: https://goerli.etherscan.io/address/0xF2B60480315f5655f7809aAC56cFBbfC33A11e66#code

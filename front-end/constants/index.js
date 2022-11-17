@@ -1,5 +1,5 @@
-const stakingAddress = "0x5C66D5085320C17AD0A476820F1D38D687189eAb"
-const rewardTokenAddress = "0x49ac9Ef94b363877112d5Ebcc878dBD10012699f"
+const stakingAddress = "0xF2B60480315f5655f7809aAC56cFBbfC33A11e66"
+const rewardTokenAddress = "0x0e349469172a2DAeCBFC840b8E4F5368242aB048"
 
 const stakingAbi = require("./stakingAbi.json")
 const rewardTokenAbi = require("./rewardTokenAbi.json")
