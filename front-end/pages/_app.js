@@ -1,11 +1,15 @@
 import "../styles/globals.css"
-import { MoralisProvider } from "react-moralis"
+import { MoralisProvider } from "react-moralis";
+import { BalancesProvidder } from '../contexts/BalancesContext.js';
 
 function MyApp({ Component, pageProps }) {
     return (
-        <MoralisProvider initializeOnMount={false}>
-            <Component {...pageProps} />
-        </MoralisProvider>
+        <BalancesProvidder>
+            <MoralisProvider initializeOnMount={false}>
+                <Component {...pageProps} />
+            </MoralisProvider>
+        </BalancesProvidder>
+        
     )
 }
 
