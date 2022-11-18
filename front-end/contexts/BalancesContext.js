@@ -3,6 +3,7 @@ import { createContext, useReducer } from 'react';
 export const BalancesContext = createContext(null);
 export const BalancesDispatchContext = createContext(null);
 
+// Context Provider setup
 export function BalancesProvidder({ children }) {
   const [balances, dispatch] = useReducer(
     balancesReducer,
@@ -18,6 +19,7 @@ export function BalancesProvidder({ children }) {
   );
 }
 
+// Reducer Setup
 function balancesReducer(balances, action) {
   switch (action.type) {
     case 'updateBalances': {

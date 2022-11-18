@@ -20,6 +20,7 @@ export default function StakeForm() {
         contractAddress: rewardTokenAddress,
         functionName: "approve",
     }
+    
     let stakeOptions = {
         abi: stakingAbi,
         contractAddress: stakingAddress,

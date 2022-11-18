@@ -1,32 +1,67 @@
 import { useState, useContext } from "react";
 import { rewardTokenAbi, rewardTokenAddress, stakingAbi, stakingAddress } from "../constants"
-import { useWeb3Contract } from "react-moralis";
+import { useMoralis, useWeb3Contract } from "react-moralis"
 import { ethers } from "ethers";
 import Emoji from "./Emoji";
 import {BalancesContext} from '../contexts/BalancesContext'
 
 const WithdrawForm = () => {
     const balances = useContext(BalancesContext);
+    const { account, isWeb3Enabled } = useMoralis()
     const { runContractFunction } = useWeb3Contract()
     const [withdrawAmount, setWithdrawAmount] = useState("0");
 
-    const handleWithdrawSubmit = (e) => {
-        e.preventDefault()
-        console.log("withdraw");
+    // Set up the params for approving the balance
+    let approveOptions = {
+        abi: rewardTokenAbi,
+        contractAddress: rewardTokenAddress,
+        functionName: "balanceOf",
+    }
 
-        // const amountToApprove = WithdrawAmount
-        // approveOptions.params = {
-        //     amount: ethers.utils.parseUnits(amountToApprove, "ether").toString(),
-        //     spender: stakingAddress,
-        // }
-        // console.log("Approving...")
-        // const tx = await runContractFunction({
-        //     params: approveOptions,
-        //     onError: (error) => console.log(error),
-        //     onSuccess: () => {
-        //         handleApproveSuccess(approveOptions.params.amount)
-        //     },
-        // })
+    let withdrawOptions = {
+        abi: stakingAbi,
+        contractAddress: stakingAddress,
+        functionName: "withdraw",
+    }
+
+    const handleWithdrawSubmit = async (e) => {
+        e.preventDefault()
+        // Check for insufficiant funds
+        if(Number(balances.stakedBalance) > Number(withdrawAmount)){
+            const amountToApprove = withdrawAmount
+            approveOptions.params = {
+                amount: ethers.utils.parseUnits(amountToApprove, "ether").toString(),
+                spender: stakingAddress,
+                account: account
+            }
+            console.log("Approving...")
+            const tx = await runContractFunction({
+                params: approveOptions,
+                onError: (error) => console.log(error),
+                onSuccess: (results) => {
+                    console.log(results);
+                },
+            })
+        }else{
+            console.error("Insufficiant Balance");
+            return false
+        }
+    }
+
+    async function handleApproveSuccess(amountToStakeFormatted) {
+        withdrawOptions.params = {
+            amount: amountToStakeFormatted,
+        }
+        console.log(`Staking ${withdrawOptions.params.amount} RT Token...`)
+        const tx = await runContractFunction({
+            params: withdrawOptions,
+            onError: (error) => console.log(error),
+            onSuccess: () => {
+                handleApproveSuccess()
+            },
+        })
+        await tx.wait(3)
+        console.log("Transaction has been confirmed by 3 blocks")
     }
     
 

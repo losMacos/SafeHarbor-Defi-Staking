@@ -8,7 +8,7 @@ import { useState, useEffect } from "react"
 import { ethers } from "ethers"
 import PanelWidget from './PanelWidget.js'
 import logo from '../public/logo.png';
-import { BalancesContext, BalancesDispatchContext } from '../contexts/BalancesContext.js';
+import { BalancesDispatchContext } from '../contexts/BalancesContext.js';
 
 export default function StakeDetails() {
     const dispatch = useContext(BalancesDispatchContext);
