@@ -6,4 +6,5 @@ const Emoji = ({compLabel, emoji, compStyle}) => {
     )
 }
 
+
 export default Emoji

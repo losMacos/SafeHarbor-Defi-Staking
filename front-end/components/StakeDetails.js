@@ -110,7 +110,7 @@ export default function StakeDetails() {
         <div id="panel-numbers">
             <div className="">
                 <div className="gap-x-4 flex justify-center w-full">
-                    <PanelWidget logo={{src: logo, height: 12, width: 20}} title="RT Balance is:" number={toEuNumberFormat(rtBalance, rtBalance.length)}/>
+                    <PanelWidget logo={{src: logo, height: 12, width: 20}} title="SAFE Balance is:" number={toEuNumberFormat(rtBalance, rtBalance.length)}/>
                     <PanelWidget logo={{src: logo, height: 12, width: 20}} title="Earned Balance is:" number={toEuNumberFormat(earnedBalance, 5)}/>
                     <PanelWidget logo={{src: logo, height: 12, width: 20}} title="Staked Balance is:" number={toEuNumberFormat(stakedBalance, stakedBalance.length)}/>
                 </div>
